@@ -40,25 +40,37 @@ const toBase64 = file => new Promise((resolve, reject) => {
 });
 
 // 🚨 NEW: Function to update the UI with the logged-in user's name
+// 🚨 UPGRADED: Read the real username directly from the secure VIP Badge (JWT)
 function updateProfileUI() {
+    const token = localStorage.getItem('uniToken');
     const savedEmail = localStorage.getItem('userEmail');
-    if (savedEmail) {
-        // Create a username from the email (e.g., john.doe@uni.edu -> u/john.doe)
-        const username = 'u/' + savedEmail.split('@')[0];
-        
-        // Update the dropdown profile text if it exists
-        const profileMuted = document.querySelector('.dropdown-profile-info .text-muted');
-        if (profileMuted) profileMuted.innerText = username;
-        
-        const profileMain = document.querySelector('.dropdown-profile-info h4');
-        if (profileMain) profileMain.innerText = savedEmail.split('@')[0];
 
-        // Update any generic profile name placeholders on the page
-        const otherProfileNames = document.querySelectorAll('#profile-name, .user-display-name');
-        otherProfileNames.forEach(el => el.innerText = username);
+    if (token && savedEmail) {
+        try {
+            // Decode the VIP Badge to get the real database username!
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            const realUsername = payload.username || 'u/' + savedEmail.split('@')[0];
+            
+            // Update the dropdown profile text
+            const profileMuted = document.querySelector('.dropdown-profile-info .text-muted');
+            if (profileMuted) profileMuted.innerText = realUsername;
+            
+            const profileMain = document.querySelector('.dropdown-profile-info h4');
+            if (profileMain) profileMain.innerText = realUsername.replace('u/', '');
+
+            // Update all generic profile name placeholders on the page
+            const otherProfileNames = document.querySelectorAll('#profile-name, .user-display-name, .profile-username');
+            otherProfileNames.forEach(el => el.innerText = realUsername);
+
+            // Update the email in the profile modal
+            const profileEmailText = document.querySelector('.profile-email');
+            if (profileEmailText) profileEmailText.innerText = savedEmail;
+
+        } catch (error) {
+            console.error("Error reading badge data", error);
+        }
     }
 }
-
 async function loadAllPosts() {
     try {
         const response = await fetch('https://unithread-backend.onrender.com/api/posts?t=' + new Date().getTime());
@@ -512,12 +524,18 @@ verifyBtn.addEventListener('click', async () => {
 
         if (result.success) {
             if (result.isNewUser) {
-                // Not in database! Show the Profile Setup form
-                alert("OTP Verified! Please create your profile to join the waitlist.");
-                otpSection.style.display = 'none';
-                profileSetupSection.style.display = 'block';
-                tempRegistrationEmail = result.email; 
-            } else {
+            alert("OTP Verified! Please create your profile to join the waitlist.");
+            
+            // 🚨 VISUAL FIX: Hide the Email and OTP sections!
+            document.querySelector('.input-group').style.display = 'none'; 
+            otpSection.style.display = 'none'; 
+            document.querySelector('.auth-card > p').style.display = 'none';
+            document.getElementById('auth-title').innerText = "Create Your Identity";
+            
+            // Show the Profile Setup
+            profileSetupSection.style.display = 'block';
+            tempRegistrationEmail = result.email; 
+        } else {
                 // Fully Approved! Let them in.
                 alert("🎉 Welcome back! You are logged in.");
                 authModal.style.display = 'none';
