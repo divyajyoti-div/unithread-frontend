@@ -1,0 +1,320 @@
+/* --- Added Poppins font for the cool new logo! --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap');
+
+/* --- 1. MODERN SLATE & INDIGO THEME --- */
+:root {
+    --bg-dark: #0f172a;         
+    --card-bg: #1e293b;         
+    --accent-indigo: #6366f1;   
+    --accent-hover: #4f46e5;    
+    --text-main: #f8fafc;       
+    --text-muted: #94a3b8;      
+    --border-light: #334155;    
+    --glass-bg: rgba(30, 41, 59, 0.7);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+body { background-color: var(--bg-dark); color: var(--text-main); min-height: 100vh; overflow-x: hidden; }
+
+/* --- 2. SLEEK NAVBAR --- */
+.navbar {
+    height: 75px; background: var(--glass-bg); backdrop-filter: blur(12px);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px; border-bottom: 1px solid var(--border-light);
+    position: sticky; top: 0; z-index: 1000;
+}
+
+.nav-left { display: flex; align-items: center; gap: 20px; }
+.hamburger { cursor: pointer; display: flex; flex-direction: column; gap: 5px; }
+.hamburger span { display: block; width: 24px; height: 2px; background-color: var(--text-main); transition: 0.3s; }
+
+/* --- ✨ THE NEW LOGO STYLING --- */
+.logo { 
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.6rem; 
+    font-weight: 700; 
+    color: white; 
+    letter-spacing: -0.5px; 
+    display: flex;        
+    align-items: center;  
+}
+
+/* Adds a cool interlocking threads icon using CSS masks! */
+.logo::before {
+    content: '';
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    background-color: var(--accent-indigo);
+    -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>') no-repeat center;
+    mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>') no-repeat center;
+    margin-right: 8px;
+}
+
+/* Converts the old pill badge into seamless text */
+.logo-badge { 
+    font-family: 'Poppins', sans-serif;
+    background: transparent; 
+    color: var(--accent-indigo); 
+    padding: 0; 
+    margin-left: 0; /* REMOVED THE GAP */
+    font-size: 1.6rem; 
+    font-weight: 600; /* Slightly lighter than "Uni" for visual contrast */
+    line-height: 1;        
+    display: inline;  
+}
+
+/* --- 3. PILL-SHAPED SEARCH BAR --- */
+.search-bar { flex: 0 1 600px; margin: 0 40px; position: relative; display: flex; align-items: center; }
+.search-icon { position: absolute; left: 18px; color: var(--text-muted); font-size: 1rem; }
+.search-bar input {
+    width: 100%; padding: 12px 20px 12px 45px; border-radius: 999px;
+    border: 1px solid var(--border-light); background: #0f172a; color: var(--text-main);
+    font-size: 0.95rem; outline: none; transition: all 0.2s ease;
+}
+.search-bar input:focus { border-color: var(--accent-indigo); box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2); }
+
+/* --- 4. NAV ACTIONS --- */
+.nav-actions { display: flex; align-items: center; gap: 15px; position: relative; }
+.notification-bell { position: relative; cursor: pointer; font-size: 1.3rem; margin-right: 15px; }
+.notif-badge {
+    position: absolute; top: -4px; right: -6px; background: #ef4444;
+    color: white; font-size: 0.65rem; font-weight: bold; padding: 2px 6px; border-radius: 50%;
+}
+
+.profile-icon {
+    width: 40px; height: 40px; min-width: 40px; 
+    border-radius: 50%; overflow: hidden; cursor: pointer;
+    border: 2px solid var(--border-light); transition: all 0.3s ease;
+    background-color: var(--card-bg); display: flex; align-items: center; justify-content: center;
+}
+.profile-icon img { width: 100%; height: 100%; object-fit: cover; }
+.profile-icon:hover { border-color: var(--accent-indigo); transform: scale(1.05); }
+
+/* --- 5. CLEAN BUTTONS --- */
+.btn-primary {
+    background: var(--accent-indigo); color: white; border: none; padding: 10px 24px;
+    border-radius: 8px; font-weight: 600; font-size: 0.9rem; cursor: pointer;
+    transition: 0.2s; white-space: nowrap;
+}
+.btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: 0 0 12px rgba(99, 102, 241, 0.4); }
+
+/* --- 6. LAYOUT & SIDEBARS --- */
+.main-layout { display: grid; grid-template-columns: 1fr 320px; gap: 30px; max-width: 1100px; margin: 30px auto; padding: 0 20px; animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.sidebar-right, .side-drawer .drawer-content { background: var(--card-bg); border: 1px solid var(--border-light); border-radius: 12px; }
+.sidebar-right { padding: 24px; position: sticky; top: 100px; }
+.side-drawer {
+    position: fixed; top: 75px; left: -300px; width: 280px; height: calc(100vh - 75px);
+    background: var(--card-bg); border-right: 1px solid var(--border-light);
+    z-index: 999; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); padding: 25px;
+}
+.side-drawer.open { left: 0; }
+.category-list { list-style: none; margin-top: 15px; }
+.category-list li { padding: 10px 15px; cursor: pointer; border-radius: 8px; color: var(--text-muted); font-weight: 500; font-size: 0.95rem; margin-bottom: 4px; }
+.category-list li:hover, .category-list li.active { background: rgba(99, 102, 241, 0.1); color: var(--accent-indigo); }
+
+/* --- 7. POST CARDS & FEED --- */
+.feed-sort { background: transparent; display: flex; gap: 10px; margin-bottom: 20px; }
+.feed-sort button { background: transparent; color: var(--text-muted); border: none; padding: 8px 16px; border-radius: 20px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+.feed-sort button:hover { background: var(--card-bg); color: var(--text-main); }
+.feed-sort button.active { background: var(--card-bg); color: var(--accent-indigo); }
+.post-card { background: var(--card-bg); border: 1px solid var(--border-light); border-radius: 12px; display: flex; margin-bottom: 20px; overflow: hidden; transition: all 0.3s ease; }
+.post-card:hover { transform: translateY(-3px); box-shadow: 0 12px 20px -8px rgba(0, 0, 0, 0.5); border-color: var(--accent-indigo); }
+.vote-section { width: 50px; background: rgba(0,0,0,0.15); display: flex; flex-direction: column; align-items: center; padding: 16px 0; gap: 4px; border-right: 1px solid var(--border-light); }
+.vote-section button { background: transparent; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer; padding: 4px; transition: transform 0.1s ease, color 0.2s ease; }
+.vote-section button:hover { color: var(--accent-indigo); }
+.vote-section button:active { transform: scale(0.7); }
+.score { font-weight: 700; font-size: 0.9rem; }
+.post-body { padding: 20px 24px; flex: 1; }
+.post-meta { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px; display: flex; gap: 10px; align-items: center; }
+.tag { background: rgba(99, 102, 241, 0.15); color: var(--accent-indigo); padding: 4px 10px; border-radius: 6px; font-weight: 600; }
+.post-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 8px; color: var(--text-main); }
+.post-excerpt { font-size: 0.95rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px; }
+.post-footer { display: flex; gap: 8px; }
+.footer-item { background: transparent; color: var(--text-muted); border: none; padding: 6px 12px; border-radius: 6px; font-weight: 500; font-size: 0.85rem; cursor: pointer; transition: 0.2s; }
+.footer-item:hover { background: rgba(255,255,255,0.05); color: var(--text-main); }
+
+/* --- 8. MODALS (Clean UI) --- */
+.modal-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(4px); display: none; justify-content: center; align-items: center; z-index: 2000; }
+.modal-content { background: var(--card-bg); border: 1px solid var(--border-light); border-radius: 16px; padding: 32px; width: 100%; max-width: 500px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5); animation: popIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.modal-content input, .modal-content textarea, .modal-content select { width: 100%; padding: 12px 16px; margin: 12px 0; border-radius: 8px; border: 1px solid var(--border-light); background: #0f172a; color: white; outline: none; }
+.modal-content input:focus, .modal-content textarea:focus { border-color: var(--accent-indigo); }
+
+/* --- 9. PROFILE DROPDOWN MENU --- */
+.profile-dropdown {
+    position: absolute; top: 60px; right: 0; width: 280px;
+    background: var(--bg-dark); border: 1px solid var(--border-light);
+    border-radius: 12px; box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+    display: none; flex-direction: column; overflow: hidden;
+    z-index: 2000; animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.profile-dropdown.show { display: flex; }
+.dropdown-item { padding: 14px 20px; display: flex; align-items: center; gap: 15px; cursor: pointer; color: var(--text-main); font-size: 0.95rem; font-weight: 500; transition: background 0.2s; }
+.dropdown-item:hover { background: rgba(255, 255, 255, 0.05); }
+.dropdown-icon { font-size: 1.2rem; width: 24px; text-align: center; color: var(--text-muted); }
+.dropdown-divider { height: 1px; background: var(--border-light); margin: 4px 0; }
+.dropdown-profile-header { padding: 16px 20px; display: flex; align-items: center; gap: 15px; cursor: pointer; transition: background 0.2s; }
+.dropdown-profile-header:hover { background: rgba(255, 255, 255, 0.05); }
+.dropdown-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--card-bg); border: 2px solid var(--accent-indigo); }
+.dropdown-profile-info { display: flex; flex-direction: column; }
+.dropdown-profile-info strong { font-size: 0.95rem; color: var(--text-main); }
+.text-muted { font-size: 0.8rem; color: var(--text-muted); }
+.text-danger { color: #ef4444; }
+
+/* --- 10. ANIMATIONS --- */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes popIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+/* --- 11. PROFILE MODAL STYLING --- */
+.profile-card { padding: 40px 32px; position: relative; }
+.profile-header { text-align: center; margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid var(--border-light); }
+.profile-large-avatar { width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--accent-indigo); padding: 3px; margin-bottom: 15px; background-color: var(--card-bg); }
+.profile-username { font-size: 1.4rem; color: var(--text-main); margin-bottom: 5px; font-weight: 700; }
+.profile-email { font-size: 0.9rem; color: var(--text-muted); }
+.profile-details { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.detail-item { background: rgba(255, 255, 255, 0.03); padding: 12px; border-radius: 8px; border: 1px solid var(--border-light); text-align: center; }
+.detail-label { display: block; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.detail-value { display: block; font-size: 1rem; font-weight: 600; color: var(--text-main); }
+/* --- 12. CREATE POST PAGE --- */
+.create-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border-light); }
+.create-header h2 { font-size: 1.4rem; font-weight: 600; }
+.draft-link { color: var(--accent-indigo); font-weight: 600; cursor: pointer; font-size: 0.9rem; }
+.draft-link:hover { text-decoration: underline; }
+
+.post-profile-selector { display: inline-flex; align-items: center; background: var(--card-bg); border: 1px solid var(--border-light); padding: 6px 12px 6px 6px; border-radius: 20px; margin-bottom: 20px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: 0.2s; }
+.post-profile-selector:hover { background: rgba(255,255,255,0.05); }
+.post-profile-selector img { width: 24px; height: 24px; border-radius: 50%; margin-right: 8px; }
+
+.editor-container { background: var(--bg-dark); }
+.editor-tabs { display: flex; border-bottom: 1px solid var(--border-light); margin-bottom: 20px; }
+.editor-tabs .tab { background: transparent; color: var(--text-muted); border: none; padding: 12px 20px; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; font-size: 0.95rem; }
+.editor-tabs .tab.active { color: var(--text-main); border-bottom-color: var(--accent-indigo); }
+.editor-tabs .tab:hover:not(.active) { background: rgba(255,255,255,0.03); }
+
+.editor-body { background: var(--card-bg); border: 1px solid var(--border-light); border-radius: 12px; padding: 16px; overflow: hidden; transition: border-color 0.2s; }
+.editor-body:focus-within { border-color: var(--text-muted); }
+
+.title-input { width: 100%; background: transparent; border: none; color: var(--text-main); font-size: 1.1rem; font-weight: 500; outline: none; padding-bottom: 5px; }
+.char-counter { text-align: right; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 15px; }
+
+.add-tags-btn { background: rgba(255,255,255,0.05); color: var(--text-main); border: 1px solid var(--border-light); padding: 4px 12px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; cursor: pointer; margin-bottom: 15px; }
+.add-tags-btn:hover { background: rgba(255,255,255,0.1); }
+
+.rich-toolbar { display: flex; align-items: center; gap: 4px; padding: 10px 0; background: var(--card-bg); border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); margin: 0 -16px; padding-left: 16px; }
+.tool-btn { background: transparent; border: none; color: var(--text-muted); font-size: 1.1rem; padding: 6px; border-radius: 4px; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; }
+.tool-btn:hover { background: rgba(255,255,255,0.1); color: var(--text-main); }
+.tool-divider { width: 1px; height: 20px; background: var(--border-light); margin: 0 8px; }
+
+.content-input { width: 100%; background: transparent; border: none; color: var(--text-main); font-size: 0.95rem; outline: none; min-height: 200px; resize: vertical; margin-top: 16px; }
+
+.editor-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 16px; margin-top: 16px; }
+/* --- 13. RICH TEXT EDITOR & TABS --- */
+
+/* Hide all tab content by default */
+.tab-content { display: none; }
+/* Only show the one with the 'active' class */
+.tab-content.active { display: block; animation: popIn 0.2s ease forwards; }
+
+/* Styling for the new contenteditable div to look like a textarea */
+.rich-editor {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--text-main);
+    font-size: 0.95rem;
+    outline: none;
+    min-height: 200px;
+    resize: vertical;
+    margin-top: 16px;
+    overflow-y: auto;
+    white-space: pre-wrap; /* Preserves spacing and line breaks */
+    word-break: break-word;
+}
+
+/*Placeholder hack for contenteditable*/
+.rich-editor[placeholder]:empty:before {
+    content: attr(placeholder);
+    color: var(--text-muted);
+    cursor: text;
+}
+
+/* Styling inside the rich editor */
+.rich-editor blockquote {
+    border-left: 3px solid var(--accent-indigo);
+    padding-left: 15px;
+    color: var(--text-muted);
+    margin: 10px 0;
+}
+.rich-editor pre {
+    background: rgba(0,0,0,0.2);
+    padding: 10px;
+    border-radius: 8px;
+    font-family: monospace;
+    margin: 10px 0;
+}
+.rich-editor ul, .rich-editor ol { margin-left: 25px; }
+.rich-editor a { color: var(--accent-indigo); text-decoration: underline; }
+
+/* Simple styling for placeholder media tab */
+.upload-placeholder {
+    border: 2px dashed var(--border-light);
+    border-radius: 8px;
+    padding: 40px;
+    text-align: center;
+    color: var(--text-muted);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    background: rgba(255,255,255,0.02);
+}
+/* --- 14. EDITOR FOOTER BUTTONS --- */
+.editor-footer {
+    display: flex;
+    justify-content: flex-end; /* Aligns all buttons to the right */
+    align-items: center;
+    padding-top: 16px;
+    margin-top: 16px;
+    border-top: 1px solid var(--border-light);
+    gap: 12px;
+}
+
+.btn-cancel {
+    background: transparent;
+    color: var(--text-muted);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 999px; /* Perfect pill shape */
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.btn-cancel:hover { background: rgba(255, 255, 255, 0.05); color: var(--text-main); }
+
+.btn-draft {
+    background: transparent;
+    color: var(--text-main);
+    border: 1px solid var(--border-light);
+    padding: 10px 20px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.btn-draft:hover { background: rgba(255, 255, 255, 0.1); }
+
+.btn-post {
+    background: var(--accent-indigo);
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.btn-post:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-post:not(:disabled):hover { filter: brightness(1.2); transform: translateY(-1px); }
