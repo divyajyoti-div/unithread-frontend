@@ -448,33 +448,47 @@ body::before {
   box-shadow: var(--shadow-card), 0 0 0 1px var(--accent-border);
 }
 .post-card:hover::after { opacity: 1; }
-
-.vote-col {
-  display: flex; flex-direction: column; align-items: center;
-  padding: 18px 10px; gap: 3px;
-  background: rgba(0,0,0,0.08);
-  border-right: 1px solid var(--border);
-  min-width: 50px; flex-shrink: 0;
+/* ── INLINE VOTE SYSTEM (Moved to Footer) ── */
+.inline-vote {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--bg-mid);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  padding: 2px 8px;
+  margin-right: 6px;
 }
-[data-theme="light"] .vote-col { background: rgba(0,0,0,0.03); }
 
 .vote-btn {
   background: none; border: none; cursor: pointer;
-  color: var(--text-3); padding: 5px; border-radius: 6px;
+  color: var(--text-3); padding: 4px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  transition: all 0.15s ease; line-height: 1;
+  transition: all 0.2s ease;
 }
-.vote-btn svg { width: 16px; height: 16px; stroke-width: 2.5; }
-.vote-btn:hover { background: var(--accent-subtle); color: var(--accent-bright); }
-.vote-btn.upvoted { color: var(--accent-bright); background: var(--accent-subtle); }
-.vote-btn.downvoted { color: var(--red); background: rgba(244,63,94,0.1); }
+
+/* The hollow-to-fill animation magic */
+.vote-btn svg path { 
+  transition: fill 0.2s ease, stroke 0.2s ease; 
+}
+
+.vote-btn:hover { background: var(--bg-elevated); color: var(--text-1); }
+
+/* Upvote Green Fill */
+.vote-btn.upvoted { color: var(--green); }
+.vote-btn.upvoted svg path { fill: var(--green); stroke: var(--green); }
+
+/* Downvote Red Fill */
+.vote-btn.downvoted { color: var(--red); }
+.vote-btn.downvoted svg path { fill: var(--red); stroke: var(--red); }
+
 .vote-btn:active { transform: scale(0.8); }
 
 .vote-score {
   font-family: var(--font-display); font-size: 0.88rem; font-weight: 700;
-  color: var(--text-2); line-height: 1; min-width: 28px; text-align: center;
+  color: var(--text-2); min-width: 20px; text-align: center;
   transition: color 0.2s;
 }
+.vote-score.upvoted-score { color: var(--green); }
+.vote-score.downvoted-score { color: var(--red); }
 .vote-score.hot { color: var(--accent-bright); }
 
 .post-body { padding: 16px 20px; flex: 1; min-width: 0; }
